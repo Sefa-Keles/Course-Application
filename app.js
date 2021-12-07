@@ -9,7 +9,7 @@ class Course{
     }    
 }
 
-//UI Constructor to manage UI functions
+//UI Constructor to manage UI Operations
 class UI{
 
     //Add Course Object to Table List
@@ -25,6 +25,7 @@ class UI{
             </tr>
         `;
     
+        //Add The New Data To The Table List
         list.innerHTML += html;
     }
 
@@ -62,6 +63,7 @@ class UI{
 
 class Storage {
 
+    // Get Information In Local Storage
     static getCourse(){
         let courses;
         
@@ -74,6 +76,7 @@ class Storage {
         return courses;
     }
 
+    // Showing The Information In Local Storage A Table
     static displayCourse(){
         const courses = Storage.getCourse();
         courses.forEach(course => {
@@ -82,12 +85,14 @@ class Storage {
         });
     }
 
+    // Set Information In Local Storage
     static setCourse(course){
         const courses = Storage.getCourse();
         courses.push(course);
         localStorage.setItem("courses", JSON.stringify(courses));
     }
 
+    // Delete Information In Local Storage
     static deleteCourse(course){
         const id = course.getAttribute("data-id");
         const courses = Storage.getCourse();
@@ -96,8 +101,8 @@ class Storage {
                 courses.splice(index,1)
             }
         });
-        
-        //Exporting the final version to LS after deleting an element from LS
+
+        //Exporting The Final Version To LS After Deleting An Element From LS
         localStorage.setItem("courses", JSON.stringify(courses));
     }
 }
@@ -140,6 +145,7 @@ document.getElementById("course-list").addEventListener("click", e => {
     //Create UI Object
     const ui = new UI();
     if(e.target.classList.contains("delete")){
+        // Delete Course From Table in UI
         ui.removeSelectedCourse(e.target);
         //Delete Course From Local Storage
         Storage.deleteCourse(e.target);
